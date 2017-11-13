@@ -32,6 +32,8 @@ public class MovieController {
 
         List<MovieDTO> result = MovieUtil.filterMoviesWithEmptyTitle(getData());
 
+        result = MovieUtil.filterMoviesWithEmptyLocation(result);
+
         if(Objects.nonNull(title)){
 
             result = MovieUtil.filterByTitle(result, title);
@@ -51,6 +53,7 @@ public class MovieController {
                         new ParameterizedTypeReference<List<MovieDTO>>() {
                         });
         List<MovieDTO> result = MovieUtil.filterMoviesWithNullTitle(response.getBody());
+
         if(Objects.nonNull(title)){
 
             result = MovieUtil.filterByTitle(result, title);
@@ -60,18 +63,17 @@ public class MovieController {
 
     private List<MovieDTO> getData(){
 
-            try {
-                CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
-                CsvMapper mapper = new CsvMapper();
-                File file = new ClassPathResource("data_movies.csv").getFile();
-                MappingIterator<MovieDTO> readValues =
-                        mapper.reader(MovieDTO.class).with(bootstrapSchema)
-                                .readValues(file);
-                return readValues.readAll();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        try {
+            CsvSchema bootstrapSchema = CsvSchema.emptySchema().withHeader();
+            CsvMapper mapper = new CsvMapper();
+            File file = new ClassPathResource("data_movies.csv").getFile();
+            MappingIterator<MovieDTO> readValues =
+                    mapper.reader(MovieDTO.class).with(bootstrapSchema)
+                            .readValues(file);
+            return readValues.readAll();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
-
 }

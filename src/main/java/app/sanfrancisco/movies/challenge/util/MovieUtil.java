@@ -16,6 +16,13 @@ public class MovieUtil {
                 .filter(dto -> Objects.nonNull(dto.getTitle())).collect(Collectors.toList());
     }
 
+
+    public static List<MovieDTO> filterMoviesWithEmptyLocation(List<MovieDTO> movies){
+
+        return movies.stream()
+                .filter(dto ->  !StringUtils.isEmpty(dto.getLocations())).collect(Collectors.toList());
+    }
+
     public static List<MovieDTO> filterMoviesWithEmptyTitle(List<MovieDTO> movies){
 
         return movies
