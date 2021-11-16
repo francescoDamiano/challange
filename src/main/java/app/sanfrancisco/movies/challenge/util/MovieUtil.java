@@ -27,12 +27,12 @@ public class MovieUtil {
 
         return movies
                 .stream()
-                .filter(movieDTO -> !StringUtils.isEmpty(movieDTO.getLocations()))
+                .filter(movieDTO -> !StringUtils.isEmpty(movieDTO.getTitle()))
                 .collect(Collectors.toList());
     }
 
     public static List<MovieDTO> filterByTitle(List<MovieDTO> movies, String title){
 
-        return movies.stream().filter(movie -> movie.getTitle().equalsIgnoreCase(title)).collect(Collectors.toList());
+        return movies.stream().filter(movie ->title.equalsIgnoreCase(movie.getTitle())).collect(Collectors.toList());
     }
 }
